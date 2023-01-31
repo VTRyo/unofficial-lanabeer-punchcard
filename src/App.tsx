@@ -62,79 +62,96 @@ function App() {
 		} else if (selectedOption === 'option2') {
 			goodDealCalc(12000, sapporoBlackLabelPrice);
 			goodDealCalc(12000, guestBeerPrice);
-			return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
+			return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1,200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
 		} else if (selectedOption === 'option3') {
 			goodDealCalc(18000, sapporoBlackLabelPrice);
 			goodDealCalc(18000, guestBeerPrice);
-			return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
+			return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1,200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
 		}
 	};
 
 	const customAmount = (inputAmount: number) => {
 		goodDealCalc(inputAmount, sapporoBlackLabelPrice);
 		goodDealCalc(inputAmount, guestBeerPrice);
-		return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
+		return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1,200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
 	};
 
 	return (
-		<div className="App">
-			<p>Lana Beerの非公式ページです</p>
-			<p>
-				サッポロ黒ラベル回数券を購入した場合に
-				<br />
-				「浮いたお金でどれくらい飲めるのか」を計算できます
-			</p>
-			<div>
-				<input
-					id="select_option1"
-					type="radio"
-					name="options"
-					value="option1"
-					checked={selectedOption === 'option1'}
-					onChange={handleOptionChange}
-				/>
-				<label htmlFor="select_option1">6,000円分 （1枚分）</label>
-			</div>
-			<div>
-				<input
-					id="select_option2"
-					type="radio"
-					name="options"
-					value="option2"
-					checked={selectedOption === 'option2'}
-					onChange={handleOptionChange}
-				/>
-				<label htmlFor="select_option2">12,000円分 （2枚分）</label>
-			</div>
-			<div>
-				<input
-					id="select_option3"
-					type="radio"
-					name="options"
-					value="option3"
-					checked={selectedOption === 'option3'}
-					onChange={handleOptionChange}
-				/>
-				<label htmlFor="select_option3">18,000円分 （3枚分）</label>
-			</div>
-			<div>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<label>金額自由入力欄</label>
+		<>
+			<div className="App">
+				<p>
+					<a href="https://www.lana-beer.com/">Lana Beer</a>の非公式ページです
+				</p>
+				<p>
+					サッポロ黒ラベル回数券を購入した場合に
+					<br />
+					「浮いたお金でどれくらい飲めるのか」を計算できます
+				</p>
+				<div>
 					<input
-						className="form"
-						type="number"
-						{...register}
-						value={inputAmount}
-						onChange={handleChange}
-					></input>
-					<input type="submit" value="計算" />
-				</form>
+						id="select_option1"
+						type="radio"
+						name="options"
+						value="option1"
+						checked={selectedOption === 'option1'}
+						onChange={handleOptionChange}
+					/>
+					<label htmlFor="select_option1">6,000円分 （1枚分）</label>
+				</div>
+				<div>
+					<input
+						id="select_option2"
+						type="radio"
+						name="options"
+						value="option2"
+						checked={selectedOption === 'option2'}
+						onChange={handleOptionChange}
+					/>
+					<label htmlFor="select_option2">12,000円分 （2枚分）</label>
+				</div>
+				<div>
+					<input
+						id="select_option3"
+						type="radio"
+						name="options"
+						value="option3"
+						checked={selectedOption === 'option3'}
+						onChange={handleOptionChange}
+					/>
+					<label htmlFor="select_option3">18,000円分 （3枚分）</label>
+				</div>
+				<div>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<label>金額自由入力欄</label>
+						<input
+							className="form"
+							type="number"
+							{...register}
+							value={inputAmount}
+							onChange={handleChange}
+						></input>
+						<input type="submit" value="計算" />
+					</form>
+				</div>
+				<p>
+					{selectRadio()}
+					{showText && (
+						<p>
+							{' '}
+							{Number(inputAmount).toLocaleString()}円購入すると
+							<br />
+							{customAmount(Number(inputAmount))}
+						</p>
+					)}
+				</p>
 			</div>
-			<p>
-				{selectRadio()}{' '}
-				{showText && <p> {customAmount(Number(inputAmount))}</p>}
-			</p>
-		</div>
+			<footer>
+				{' '}
+				<div>
+					<a href="https://vtryo.me">© 2023 Create by VTRyo</a>
+				</div>
+			</footer>
+		</>
 	);
 }
 
