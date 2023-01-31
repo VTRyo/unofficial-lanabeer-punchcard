@@ -20,9 +20,12 @@ function App() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = (data) => {
+	const onSubmit = () => {
 		setShowText(true);
+		//カスタム計算が押されたらラジオボタンの文字列を非表示にする
+		setSelectedOption('');
 	};
+
 	const [inputAmount, setInputAmount] = useState('');
 	const [showText, setShowText] = useState(false);
 	const handleChange = (event: any) => {
@@ -32,6 +35,8 @@ function App() {
 	const [selectedOption, setSelectedOption] = useState('option1');
 	const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSelectedOption(event.target.value);
+		//ラジオボタンが押されたらカスタム計算の文字列を非表示にする
+		setShowText(false);
 	};
 
 	const goodDealCalc = (amount: number, beerPrice: number) => {
@@ -63,6 +68,12 @@ function App() {
 			goodDealCalc(18000, guestBeerPrice);
 			return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
 		}
+	};
+
+	const customAmount = (inputAmount: number) => {
+		goodDealCalc(inputAmount, sapporoBlackLabelPrice);
+		goodDealCalc(inputAmount, guestBeerPrice);
+		return `浮いたお金でサッポロ黒ラベルが${avalilableBeerCount}杯、もしくは1200円のゲストビールが${avalilableGuestBeerCount}杯飲めます`;
 	};
 
 	return (
@@ -110,17 +121,19 @@ function App() {
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<label>金額自由入力欄</label>
 					<input
+						className="form"
 						type="number"
 						{...register}
 						value={inputAmount}
 						onChange={handleChange}
 					></input>
 					<input type="submit" value="計算" />
-					{showText && <p> {inputAmount}</p>}
 				</form>
 			</div>
-			<p> {selectRadio()} </p>
-			<p>サッポロ黒ラベルが {avalilableBeerCount} 杯分お得！</p>
+			<p>
+				{selectRadio()}{' '}
+				{showText && <p> {customAmount(Number(inputAmount))}</p>}
+			</p>
 		</div>
 	);
 }
