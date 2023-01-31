@@ -10,6 +10,20 @@
   color: white;
 }
 
+footer {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+a {
+  color: white;
+}
 .form {
   display: block;
   box-sizing: border-box;
@@ -20,6 +34,11 @@
   margin-bottom: 10px;
   font-size: 14px;
 }
+
+/* .emphasis {
+  position: relative;
+  background: linear-gradient(transparent 80%, yellow 40%);
+} */
 
 button,
 input[type="submit"] {
